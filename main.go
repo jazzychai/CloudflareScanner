@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/cheggaaa/pb/v3"
 	"sort"
 	"sync"
 	"time"
+
+	"github.com/cheggaaa/pb/v3"
 )
 
 func handleUserInput() {
-	fmt.Println("请输入扫描协程数(数字越大越快,默认400):")
+	fmt.Println("请输入扫描协程数(数字越大越快,默认500):")
 	fmt.Scanln(&pingRoutine)
 	if pingRoutine <= 0 {
-		pingRoutine = 400
+		pingRoutine = 500
 	}
 	fmt.Println("请输入tcping次数(默认10):")
 	fmt.Scanln(&pingTime)
@@ -63,5 +64,5 @@ func main() {
 		bar.Add(1)
 	}
 	bar.Finish()
-	ExportCsv("./result.csv", data)
+	ExportCsv(fmt.Sprintf("./result_%v.csv", time.Now().Format("20060102150405")), data)
 }
